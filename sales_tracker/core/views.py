@@ -52,7 +52,3 @@ class VendaViewSet(viewsets.ModelViewSet):
 class ItensVendaViewSet(viewsets.ModelViewSet):
     queryset = ItensVenda.objects.all()
     serializer_class = ItensVendaSerializer
-
-
-
-# Create your views here.
