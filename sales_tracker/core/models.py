@@ -42,16 +42,14 @@ class Venda(models.Model):
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         if self.pk:
             self.valor_total = sum(item.subtotal for item in self.itens.all())
-        else:
-            self.valor_total = 0  # Inicializa com 0 para evitar erros
-        super().save(*args, **kwargs)
+            super().save(update_fields=['valor_total'])
 
     def clean(self):
-        if self.pk:
-            if not self.itens.exists():
-                raise ValidationError("A venda deve conter ao menos um item.")
+        if self.pk and not self.itens.exists():
+            raise ValidationError("A venda deve conter ao menos um item.")
 
 
 class ItensVenda(models.Model):
@@ -63,8 +61,8 @@ class ItensVenda(models.Model):
     def subtotal(self):
         return self.produto.valor * self.quantidade
 
-    def clean(self):
-        if self.quantidade <= 0:
-            raise ValidationError("A quantidade deve ser maior que zero.")
-        if self.produto.valor <= 0:
-            raise ValidationError("O produto deve ter um valor maior que zero.")
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.venda.save()
+
+

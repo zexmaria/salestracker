@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Venda</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .produto-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .produto-row input, .produto-row select {
+            width: 48%;
+        }
+        .add-produto {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        .add-produto {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-left: 10px;
+        border-radius: 3px;
+    }
+    .add-produto:hover {
+        background-color: #218838;
+    }
+    </style>
+</head>
+<body>
+    <h1>Cadastrar Venda</h1>
+    <!-- Populado dinamicamente no backend -->
+    <form id="venda-form" method="POST" action="/cadastrar_venda/">
+        {% csrf_token %}
+        <!-- Cliente -->
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" name="cliente">
+            {% for cliente in clientes %}
+                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+            {% endfor %}
+        </select>
+        <!-- Vendedor -->
+        <label for="vendedor">Vendedor:</label>
+        <select id="vendedor" name="vendedor">
+            {% for vendedor in vendedores %}
+                <option value="{{ vendedor.id }}">{{ vendedor.nome }}</option>
+            {% endfor %}
+        </select>
+        <div id="produtos-container">
+            <h3>Venda</h3>
+            <label for="vendedor">Produto:</label>
+            <div class="produto-row">
+                <select name="produtos" class="produto-select">
+                    {% for produto in produtos %}
+                <option value="{{ produto.id }}">{{ produto.nome }}</option>
+                {% endfor %}
+                </select>
+                <input type="number" name="quantidades[]" placeholder="Quantidade" min="1">
+                <button type="button" class="add-produto" onclick="adicionarProduto(this)">ADD</button>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Cadastrar Venda</button>
+    </form>
+
+        <!-- Armazenar opções de produtos como string HTML -->
+    <div id="produtos-options" style="display: none;">
+        {% for produto in produtos %}
+            <option value="{{ produto.id }}">{{ produto.nome }}</option>
+        {% endfor %}
+    </div>
+
+
+    <script>
+   function addNovoProduto() {
+    const container = document.getElementById('produtos-container');
+    const row = document.createElement('div');
+    row.classList.add('produto-row');
+
+    // Recuperar as opções dos produtos do elemento oculto
+    const produtosOptions = document.getElementById('produtos-options').innerHTML;
+
+    // Criar a nova linha de produto dinamicamente
+    row.innerHTML = `
+        <select name="produtos[]" class="produto-select">
+            ${produtosOptions} <!-- Insere as opções aqui -->
+        </select>
+        <input type="number" name="quantidades[]" placeholder="Quantidade" min="1">
+        <button type="button" class="add-produto" onclick="adicionarProduto(this)">ADD</button>
+    `;
+
+    container.appendChild(row);
+}
+
+function adicionarProduto(button) {
+    const row = button.parentElement; // A linha atual onde o botão foi clicado
+    const selectProduto = row.querySelector('.produto-select');
+    const inputQuantidade = row.querySelector('input[type="number"]');
+
+    const produtoId = selectProduto.value;
+    const quantidade = inputQuantidade.value;
+
+    if (!produtoId || quantidade <= 0) {
+        alert('Selecione um produto e insira uma quantidade válida.');
+        return;
+    }
+
+    // Marca o produto como "adicionado" e desabilita campos para edição
+    selectProduto.disabled = true;
+    inputQuantidade.disabled = true;
+    button.disabled = true;
+    button.innerText = 'Adicionado';
+
+    // Adiciona um novo campo automaticamente
+    addNovoProduto();
+}
+    </script>
+</body>
+</html>
