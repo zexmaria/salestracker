@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from django.shortcuts import render, redirect
 
 
-
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
@@ -65,20 +64,23 @@ def index(request):
 def relatorio_vendas(request):
     vendas = Venda.objects.all()
 
-    # Filtros opcionais
     data_inicio = request.GET.get('data_inicio')
     data_fim = request.GET.get('data_fim')
     vendedor = request.GET.get('vendedor')
     cliente = request.GET.get('cliente')
 
     if data_inicio:
-        vendas = vendas.filter(data__gte=data_inicio)
+        vendas = vendas.filter(data_venda__gte=data_inicio)
     if data_fim:
-        vendas = vendas.filter(data__lte=data_fim)
+        vendas = vendas.filter(data_venda__lte=data_fim)
     if vendedor:
         vendas = vendas.filter(vendedor_id=vendedor)
     if cliente:
         vendas = vendas.filter(cliente_id=cliente)
+
+    for venda in vendas:
+        venda.valor_total = sum(item.quantidade * item.produto.valor for item in venda.itens.all())
+        venda.save(update_fields=["valor_total"])
 
     context = {
         'vendas': vendas
@@ -98,6 +100,26 @@ def cliente_create(request):
     return render(request, 'core/cliente_create.html')
 
 
+def vendedor_create(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        registro = request.POST['registro']
+        # Lógica para salvar o vendedor no banco de dados
+        vendedor = Vendedor.objects.create(nome=nome, registro=registro)
+        return redirect('core:vendedor_create')
+    return render(request, 'core/vendedores_create.html')
+
+def produto_create(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        grupo = request.POST['grupo']
+        Vendedor.objects.create(nome=nome, registro=grupo)
+
+        return redirect('/')
+
+    return render(request, 'core/vendedores_create.html')
+
+
 def cadastrar_venda(request):
     if request.method == "POST":
         cliente_id = request.POST.get("cliente")
@@ -105,22 +127,34 @@ def cadastrar_venda(request):
         produtos = request.POST.getlist("produtos[]")
         quantidades = request.POST.getlist("quantidades[]")
 
+        if not cliente_id or not vendedor_id or not produtos or not quantidades:
+            return render(request, "core/cadastrar_venda.html", {
+                "error": "Todos os campos são obrigatórios!",
+                'clientes': Cliente.objects.all(),
+                'vendedores': Vendedor.objects.all(),
+                'produtos': Produto.objects.all(),
+            })
+
         cliente = Cliente.objects.get(id=cliente_id)
         vendedor = Vendedor.objects.get(id=vendedor_id)
         venda = Venda.objects.create(cliente=cliente, vendedor=vendedor)
 
         for produto_id, quantidade in zip(produtos, quantidades):
-            if not quantidade or int(quantidade) <= 0:
+            try:
+                produto = Produto.objects.get(id=produto_id)
+                if int(quantidade) > 0:
+                    ItensVenda.objects.create(venda=venda, produto=produto, quantidade=int(quantidade))
+            except (Produto.DoesNotExist, ValueError):
                 continue
-            produto = Produto.objects.get(id=produto_id)
-            ItensVenda.objects.create(venda=venda, produto=produto, quantidade=int(quantidade))
-            return render(request, "core/cadastrar_venda.html")
 
-    clientes = Cliente.objects.all()
-    vendedores = Vendedor.objects.all()
-    produtos = Produto.objects.all()
-    return render(request, "core/cadastrar_venda.html", {
-        "clientes": clientes,
-        "vendedores": vendedores,
-        "produtos": produtos,
-    })
+        venda.calcular_valor_total()
+        venda.save(update_fields=["valor_total"])
+        return redirect('/relatorios/vendas/')
+
+    context = {
+        'clientes': Cliente.objects.all(),
+        'vendedores': Vendedor.objects.all(),
+        'produtos': Produto.objects.all(),
+    }
+    return render(request, "core/cadastrar_venda.html", context)
+

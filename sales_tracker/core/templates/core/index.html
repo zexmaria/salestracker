@@ -50,26 +50,22 @@
 <body>
     <div class="container">
         <h1>SalesTracker</h1>
-
         <!-- Links para cadastrar modelos -->
         <div class="section">
         <h2>Nova Venda</h2>
+
         <ul>
         <li><a href="{% url 'core:cadastrar_venda' %}">Cadastrar Nova Venda</a></li>
         </ul>
-
         </div>
+
          <div class="section">
           <h2>Cadastros</h2>
             <ul>
                 <li><a href="{% url 'core:cliente_create' %}">Cadastrar Cliente</a></li>
-
+                <li><a href="{% url 'core:vendedor_create' %}">Cadastrar Vendedor</a></li>
             </ul>
-
-            </div>
-
-
-
+          </div>
 
         <!-- Formulário para relatórios -->
         <div class="section">

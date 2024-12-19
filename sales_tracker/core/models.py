@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 
 
@@ -29,7 +31,9 @@ class Produto(models.Model):
 
 class Vendedor(models.Model):
     nome = models.CharField(max_length=100)
-    matricula = models.CharField(max_length=20, unique=True)
+    registro = models.CharField(max_length=20, unique=True)
+    #registro = models.CharField(max_length=50, unique=True)  # Campo registro
+
 
     def __str__(self):
         return self.nome
@@ -41,15 +45,11 @@ class Venda(models.Model):
     data_venda = models.DateField(auto_now_add=True)
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
+    def calcular_valor_total(self):
+        self.valor_total = sum(item.subtotal for item in self.itens.all())
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.pk:
-            self.valor_total = sum(item.subtotal for item in self.itens.all())
-            super().save(update_fields=['valor_total'])
-
-    def clean(self):
-        if self.pk and not self.itens.exists():
-            raise ValidationError("A venda deve conter ao menos um item.")
 
 
 class ItensVenda(models.Model):
@@ -63,6 +63,11 @@ class ItensVenda(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.venda.save()
 
 
+@receiver(post_save, sender=ItensVenda)
+@receiver(post_delete, sender=ItensVenda)
+def atualizar_valor_total_venda(sender, instance, **kwargs):
+    venda = instance.venda
+    venda.valor_total = sum(item.subtotal for item in venda.itens.all())
+    Venda.objects.filter(id=venda.id).update(valor_total=venda.valor_total)

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Produto</title>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Produto</title>
+</head>
+<body> {% csrf_token %}
+    <h1>Adicionar Produto</h1>
+    <form action="{% url 'core:produto_create' %}" method="post">
+
+        {% csrf_token %}
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="registro">Nº de Registro:</label>
+        <input type="registro" id="registro" name="email" required><br><br>
+
+        <button type="submit">Salvar Vendedor</button>
+    </form>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
