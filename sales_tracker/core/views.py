@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from .models import Cliente, GrupoProduto, Produto, Vendedor, Venda, ItensVenda
 from .serializers import *
 from rest_framework.decorators import action
 from rest_framework.response import Response

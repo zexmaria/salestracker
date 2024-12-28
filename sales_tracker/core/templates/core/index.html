@@ -50,24 +50,19 @@
 <body>
     <div class="container">
         <h1>SalesTracker</h1>
-        <!-- Links para cadastrar modelos -->
         <div class="section">
-        <h2>Nova Venda</h2>
-
-        <ul>
-        <li><a href="{% url 'core:cadastrar_venda' %}">Cadastrar Nova Venda</a></li>
-        </ul>
+            <h2>Nova Venda</h2>
+            <ul>
+                <li><a href="{% url 'core:cadastrar_venda' %}">Cadastrar Nova Venda</a></li>
+            </ul>
         </div>
-
-         <div class="section">
-          <h2>Cadastros</h2>
+        <div class="section">
+            <h2>Cadastros</h2>
             <ul>
                 <li><a href="{% url 'core:cliente_create' %}">Cadastrar Cliente</a></li>
                 <li><a href="{% url 'core:vendedor_create' %}">Cadastrar Vendedor</a></li>
             </ul>
-          </div>
-
-        <!-- Formulário para relatórios -->
+        </div>
         <div class="section">
             <h2>Gerar Relatório de Vendas</h2>
             <form method="get" action="{% url 'core:relatorio_vendas' %}">
@@ -84,7 +79,7 @@
                     <select id="vendedor" name="vendedor">
                         <option value="">Todos</option>
                         {% for vendedor in vendedores %}
-                        <option value="{{ vendedor.id }}">{{ vendedor.nome }}</option>
+                            <option value="{{ vendedor.id }}">{{ vendedor.nome }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -93,7 +88,7 @@
                     <select id="cliente" name="cliente">
                         <option value="">Todos</option>
                         {% for cliente in clientes %}
-                        <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                            <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -103,3 +98,5 @@
     </div>
 </body>
 </html>
+
+

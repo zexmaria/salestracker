@@ -32,8 +32,6 @@ class Produto(models.Model):
 class Vendedor(models.Model):
     nome = models.CharField(max_length=100)
     registro = models.CharField(max_length=20, unique=True)
-    #registro = models.CharField(max_length=50, unique=True)  # Campo registro
-
 
     def __str__(self):
         return self.nome

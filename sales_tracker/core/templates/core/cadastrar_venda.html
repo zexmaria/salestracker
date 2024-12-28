@@ -111,12 +111,13 @@
             <option value="{{ produto.id }}">{{ produto.nome }}</option>
         {% endfor %}
     </div>
+
 <script>
+
     function addNovoProduto() {
         const container = document.getElementById('produtos-container');
         const row = document.createElement('div');
         row.classList.add('produto-row');
-
         const produtosOptions = document.getElementById('produtos-options').innerHTML;
 
         // Criar uma nova linha de produto
@@ -127,7 +128,6 @@
             <input type="number" name="quantidades[]" placeholder="Quantidade" min="1" required>
             <button type="button" class="add-produto" onclick="adicionarProduto(this)">ADD</button>
         `;
-
         container.appendChild(row);
     }
 
@@ -154,12 +154,10 @@
         addNovoProduto();
     }
 
-    // Inicializar apenas uma linha ao carregar a página
     document.addEventListener('DOMContentLoaded', () => {
-        // Remova qualquer linha extra gerada automaticamente
         const container = document.getElementById('produtos-container');
         container.innerHTML = '';
-        addNovoProduto(); // Adicione uma única linha inicial
+        addNovoProduto();
     });
 </script>
 

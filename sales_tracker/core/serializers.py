@@ -36,8 +36,6 @@ class ItensVendaSerializer(serializers.ModelSerializer):
 
 class VendaSerializer(serializers.ModelSerializer):
     itens = ItensVendaSerializer(many=True, read_only=True)
-    valor_total = serializers.ReadOnlyField()
-
     class Meta:
         model = Venda
         fields = '__all__'
