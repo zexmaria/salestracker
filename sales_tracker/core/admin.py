@@ -9,7 +9,7 @@ class ItensVendaInline(admin.TabularInline):
 
 class VendaAdmin(admin.ModelAdmin):
     inlines = [ItensVendaInline]  # Relaciona os itens de venda à venda principal
-    list_display = ['cliente', 'vendedor', 'data_venda', 'valor_total', 'inlines']
+    list_display = ["cliente", "vendedor", "data_venda", "valor_total", "inlines"]
 
 
 admin.site.register(Cliente)

@@ -29,11 +29,11 @@ class VendaViewSet(viewsets.ModelViewSet):
     queryset = Venda.objects.all()
     serializer_class = VendaSerializer
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=["get"])
     def relatorio(self, request):
-        cliente_id = request.query_params.get('cliente')
-        vendedor_id = request.query_params.get('vendedor')
-        data = request.query_params.get('data')
+        cliente_id = request.query_params.get("cliente")
+        vendedor_id = request.query_params.get("vendedor")
+        data = request.query_params.get("data")
 
         vendas = self.queryset
         if cliente_id:
@@ -53,20 +53,17 @@ class ItensVendaViewSet(viewsets.ModelViewSet):
 
 
 def index(request):
-    context = {
-        'clientes': Cliente.objects.all(),
-        'vendedores': Vendedor.objects.all()
-    }
-    return render(request, 'core/index.html', context)
+    context = {"clientes": Cliente.objects.all(), "vendedores": Vendedor.objects.all()}
+    return render(request, "core/index.html", context)
 
 
 def relatorio_vendas(request):
     vendas = Venda.objects.all()
 
-    data_inicio = request.GET.get('data_inicio')
-    data_fim = request.GET.get('data_fim')
-    vendedor = request.GET.get('vendedor')
-    cliente = request.GET.get('cliente')
+    data_inicio = request.GET.get("data_inicio")
+    data_fim = request.GET.get("data_fim")
+    vendedor = request.GET.get("vendedor")
+    cliente = request.GET.get("cliente")
 
     if data_inicio:
         vendas = vendas.filter(data_venda__gte=data_inicio)
@@ -78,45 +75,46 @@ def relatorio_vendas(request):
         vendas = vendas.filter(cliente_id=cliente)
 
     for venda in vendas:
-        venda.valor_total = sum(item.quantidade * item.produto.valor for item in venda.itens.all())
+        venda.valor_total = sum(
+            item.quantidade * item.produto.valor for item in venda.itens.all()
+        )
         venda.save(update_fields=["valor_total"])
 
-    context = {
-        'vendas': vendas
-    }
-    return render(request, 'core/relatorio_vendas.html', context)
+    context = {"vendas": vendas}
+    return render(request, "core/relatorio_vendas.html", context)
 
 
 def cliente_create(request):
-    if request.method == 'POST':
-        nome = request.POST['nome']
-        email = request.POST['email']
-        telefone = request.POST['telefone']
+    if request.method == "POST":
+        nome = request.POST["nome"]
+        email = request.POST["email"]
+        telefone = request.POST["telefone"]
         Cliente.objects.create(nome=nome, email=email, telefone=telefone)
 
-        return redirect('/')
+        return redirect("/")
 
-    return render(request, 'core/cliente_create.html')
+    return render(request, "core/cliente_create.html")
 
 
 def vendedor_create(request):
-    if request.method == 'POST':
-        nome = request.POST['nome']
-        registro = request.POST['registro']
+    if request.method == "POST":
+        nome = request.POST["nome"]
+        registro = request.POST["registro"]
         # Lógica para salvar o vendedor no banco de dados
         vendedor = Vendedor.objects.create(nome=nome, registro=registro)
-        return redirect('core:vendedor_create')
-    return render(request, 'core/vendedores_create.html')
+        return redirect("core:vendedor_create")
+    return render(request, "core/vendedores_create.html")
+
 
 def produto_create(request):
-    if request.method == 'POST':
-        nome = request.POST['nome']
-        grupo = request.POST['grupo']
+    if request.method == "POST":
+        nome = request.POST["nome"]
+        grupo = request.POST["grupo"]
         Vendedor.objects.create(nome=nome, registro=grupo)
 
-        return redirect('/')
+        return redirect("/")
 
-    return render(request, 'core/vendedores_create.html')
+    return render(request, "core/vendedores_create.html")
 
 
 def cadastrar_venda(request):
@@ -127,12 +125,16 @@ def cadastrar_venda(request):
         quantidades = request.POST.getlist("quantidades[]")
 
         if not cliente_id or not vendedor_id or not produtos or not quantidades:
-            return render(request, "core/cadastrar_venda.html", {
-                "error": "Todos os campos são obrigatórios!",
-                'clientes': Cliente.objects.all(),
-                'vendedores': Vendedor.objects.all(),
-                'produtos': Produto.objects.all(),
-            })
+            return render(
+                request,
+                "core/cadastrar_venda.html",
+                {
+                    "error": "Todos os campos são obrigatórios!",
+                    "clientes": Cliente.objects.all(),
+                    "vendedores": Vendedor.objects.all(),
+                    "produtos": Produto.objects.all(),
+                },
+            )
 
         cliente = Cliente.objects.get(id=cliente_id)
         vendedor = Vendedor.objects.get(id=vendedor_id)
@@ -142,18 +144,19 @@ def cadastrar_venda(request):
             try:
                 produto = Produto.objects.get(id=produto_id)
                 if int(quantidade) > 0:
-                    ItensVenda.objects.create(venda=venda, produto=produto, quantidade=int(quantidade))
+                    ItensVenda.objects.create(
+                        venda=venda, produto=produto, quantidade=int(quantidade)
+                    )
             except (Produto.DoesNotExist, ValueError):
                 continue
 
         venda.calcular_valor_total()
         venda.save(update_fields=["valor_total"])
-        return redirect('/relatorios/vendas/')
+        return redirect("/relatorios/vendas/")
 
     context = {
-        'clientes': Cliente.objects.all(),
-        'vendedores': Vendedor.objects.all(),
-        'produtos': Produto.objects.all(),
+        "clientes": Cliente.objects.all(),
+        "vendedores": Vendedor.objects.all(),
+        "produtos": Produto.objects.all(),
     }
     return render(request, "core/cadastrar_venda.html", context)
-

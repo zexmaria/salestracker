@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_remove_itensvenda_subtotal_remove_venda_valor_total'),
+        ("core", "0002_remove_itensvenda_subtotal_remove_venda_valor_total"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='venda',
-            name='valor_total',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True),
+            model_name="venda",
+            name="valor_total",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=10, null=True
+            ),
         ),
     ]

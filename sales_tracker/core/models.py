@@ -22,7 +22,9 @@ class GrupoProduto(models.Model):
 
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
-    grupo = models.ForeignKey(GrupoProduto, on_delete=models.CASCADE, related_name='produtos')
+    grupo = models.ForeignKey(
+        GrupoProduto, on_delete=models.CASCADE, related_name="produtos"
+    )
     valor = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
@@ -38,10 +40,16 @@ class Vendedor(models.Model):
 
 
 class Venda(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='vendas')
-    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, related_name='vendas')
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, related_name="vendas"
+    )
+    vendedor = models.ForeignKey(
+        Vendedor, on_delete=models.CASCADE, related_name="vendas"
+    )
     data_venda = models.DateField(auto_now_add=True)
-    valor_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    valor_total = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
 
     def calcular_valor_total(self):
         self.valor_total = sum(item.subtotal for item in self.itens.all())
@@ -51,7 +59,7 @@ class Venda(models.Model):
 
 
 class ItensVenda(models.Model):
-    venda = models.ForeignKey(Venda, on_delete=models.CASCADE, related_name='itens')
+    venda = models.ForeignKey(Venda, on_delete=models.CASCADE, related_name="itens")
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
 
