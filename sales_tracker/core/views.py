@@ -109,12 +109,24 @@ def vendedor_create(request):
 def produto_create(request):
     if request.method == "POST":
         nome = request.POST["nome"]
-        grupo = request.POST["grupo"]
-        Vendedor.objects.create(nome=nome, registro=grupo)
+        grupo_id = request.POST["grupo"]
+        valor = request.POST["valor"]
+        grupo = GrupoProduto.objects.get(id=grupo_id)
+        produto = Produto.objects.create(nome=nome, grupo=grupo, valor=valor)
 
         return redirect("/")
 
-    return render(request, "core/vendedores_create.html")
+    grupos = GrupoProduto.objects.all()
+    return render(request, "core/produto_create.html", {"grupos": grupos})
+
+
+def grupo_create(request):
+    if request.method == "POST":
+        nome = request.POST["nome"]
+        grupo = GrupoProduto.objects.create(nome=nome)
+        return redirect("/")
+
+    return render(request, "core/grupo_create.html")
 
 
 def cadastrar_venda(request):
@@ -160,3 +172,4 @@ def cadastrar_venda(request):
         "produtos": Produto.objects.all(),
     }
     return render(request, "core/cadastrar_venda.html", context)
+

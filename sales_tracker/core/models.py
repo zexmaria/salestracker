@@ -23,7 +23,7 @@ class GrupoProduto(models.Model):
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
     grupo = models.ForeignKey(
-        GrupoProduto, on_delete=models.CASCADE, related_name="produtos"
+        GrupoProduto, on_delete=models.CASCADE, related_name="grupo"
     )
     valor = models.DecimalField(max_digits=10, decimal_places=2)
 

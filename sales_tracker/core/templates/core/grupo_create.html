@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Grupo</title>
+</head>
+<body>
+    <h1>Adicionar Grupo</h1>
+    <form action="{% url 'core:grupo_create' %}" method="post">
+        {% csrf_token %}
+        <label for="nome"> Novo Grupo de Produtos:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <button type="submit">Salvar Grupo</button>
+    </form>
+</body>
+</html>
