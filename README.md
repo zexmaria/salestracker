@@ -1,142 +1,95 @@
 # SalesTracker
 
-SalesTracker é um sistema de gerenciamento de vendas que permite cadastrar clientes, vendedores, produtos e vendas, além de gerar relatórios detalhados das transações realizadas. O objetivo é proporcionar uma interface simples e intuitiva para gerenciar vendas e acompanhar o desempenho comercial.
+**SalesTracker** é um sistema de gerenciamento de 
+vendas que permite cadastrar clientes, vendedores, 
+produtos e vendas e gerar relatórios detalhados 
+das transações. Este projeto pessoal foi desenvolvido 
+como parte do estudo sobre API REST utilizando
+**Django** e **Django REST Framework (DRF)**.
 
 
-O projeto é parte do estudo sobre API REST utilizando Django e DRF.
+## 🛠️ Funcionalidades Principais
 
-## Funcionalidades Principais
-
+- API RESTful para integração e consulta de dados.
+- Relatórios detalhados de vendas, filtrados por datas, cliente ou vendedor.
+- Registro de vendas, vinculando clientes, vendedores e itens da venda.
 - Cadastro de clientes com informações básicas como nome, email e telefone.
-- Cadastro de vendedores com nome e número de registro.
-- Cadastro de produtos.
-- Registro de vendas com vinculação a clientes, vendedores e produtos, incluindo a quantidade e preço de cada produto vendido.
-- Geração de relatórios de vendas filtrados por período, cliente e vendedor.
+- Registro de vendedores com nome e número de registro único.
+- Gerenciamento de produtos, incluindo nome, grupo de produtos e valor.
+***
+### Endpoint para relatório de vendas:
+http://127.0.0.1:8000/api/vendas/?data_inicio=&data_fim=&vendedor=&cliente=
+***
+## 🚀 Tecnologias Utilizadas
+
+- **Python**: Linguagem principal do projeto.
+- **Django**: Framework web utilizado para o backend.
+- **Django REST Framework (DRF)**: Para criação de APIs RESTful.
+- **HTML**: Para o frontend básico com templates.
+- **Bootstrap**: Para estilização e responsividade da interface.
+***
+## 🔗 Como Executar o Projeto
+
+1. **Clone o repositório**:
+    
+    ```bash
+    git clone https://github.com/zexmaria/salestracker.git 
+    ```
+    
+2. **Acesse o diretório do projeto**:
+    
+    ```bash
+    cd salestracker 
+    ```
+    
+3. **Crie um ambiente virtual**:
+    
+    ```bash
+    python -m venv .venv
+    ```
+    
+4. **Ative o ambiente virtual**:
+    - No Windows:
+        
+        ```bash
+        .venv\Scripts\activate 
+        ```
+        
+    - No Linux/Mac:
+        
+        ```bash
+        source .venv/bin/activate
+        ```
+        
+5. **Instale as dependências**:
+    
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+6. **Execute as migrações**:
+    
+    ```bash
+    python manage.py migrate
+    ```
+    
+7. **Inicie o servidor local**:
+    
+    ```bash
+    python manage.py runserver
+    ```
+    
+
+Acesse o sistema em: [http://127.0.0.1:8000](http://127.0.0.1:8000/).
+
+## 🧑‍💻 Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
 ---
 
-## Tecnologias Utilizadas
+**Autor**: José Maria Duarte
 
-- **Python** (3.9 ou superior)
-- **Django** (versão 5.1.4)
-- **Django REST Framework** (para APIs)
-- **HTML/CSS** (para os templates)
-- **SQLite** (banco de dados padrão)
+**LinkedIn**: [José Maria](https://www.linkedin.com/in/zemariaduarte/)
 
----
-
-## Requisitos
-
-- Python 3.9 ou superior
-- Git
-- Poetry (para gerenciamento de dependências)
-
----
-
-## Como Rodar o Projeto Localmente
-
-### 1. Clonar o Repositório
-
-Execute o seguinte comando no terminal para clonar o repositório:
-
-```
-git clone https://github.com/seu-usuario/salestracker.git
-cd salestracker
-```
-
-### 2. Configurar o Ambiente Virtual
-
-Instale as dependências usando o Poetry:
-
-```
-poetry install
-```
-
-Ative o ambiente virtual gerenciado pelo Poetry:
-
-```
-poetry shell
-```
-
-### 3. Configurar o Banco de Dados
-
-Aplique as migrações para configurar o banco de dados:
-
-```
-python manage.py migrate
-```
-
-### 4. Popular o Banco de Dados (Opcional)
-
-Se desejar, pode criar dados iniciais no sistema:
-
-```
-python manage.py createsuperuser
-```
-
-Preencha os dados solicitados para criar um usuário administrador.
-
-### 5. Iniciar o Servidor Local
-
-Execute o servidor local do Django:
-
-```
-python manage.py runserver
-```
-
-Acesse o sistema no navegador usando o endereço:
-
-```
-http://127.0.0.1:8000/
-```
-
----
-
-## Estrutura do Projeto
-
-- **core**: App principal contendo as funcionalidades de cadastro e gerenciamento.
-- **templates**: Arquivos HTML para renderização das páginas.
-- **static**: Arquivos de estilo (CSS) e JavaScript.
-- **manage.py**: Arquivo de gerenciamento do Django.
-
----
-
-## Rotas Principais
-
-### Cadastro
-
-- `http://127.0.0.1:8000/cliente/create/`: Cadastro de clientes
-- `http://127.0.0.1:8000/vendedor/create/`: Cadastro de vendedores
-- `http://127.0.0.1:8000/produto/create/`: Cadastro de produtos
-- `http://127.0.0.1:8000/venda/create/`: Registro de vendas
-
-### Relatórios
-
-- `http://127.0.0.1:8000/relatorio/vendas/`: Geração de relatório de vendas
-
----
-
-## Melhorias Futuras
-
-- Implementação de autenticação de usuários com permissões diferenciadas.
-- Integração com APIs de pagamento.
-- Visualização de relatórios em gráficos.
-- Exportação de relatórios em PDF e Excel.
-
----
-
-## Contribuições
-
-Contribuições são bem-vindas! Para contribuir, siga os passos abaixo:
-
-1. Fork este repositório.
-2. Crie uma branch para a funcionalidade/correção: `git checkout -b minha-feature`
-3. Envie suas modificações: `git commit -m 'Adiciona nova funcionalidade'`
-4. Envie para o repositório remoto: `git push origin minha-feature`
-5. Abra um Pull Request.
-
----
-
-## Licença
-
-Este projeto é licenciado sob a Licença MIT. Para mais informações, leia o arquivo LICENSE.
+**GitHub**: [ZexMaria](https://github.com/zexmaria)

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Venda</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -56,19 +55,6 @@
         .submit-btn:hover {
             background-color: #218838;
         }
-        .add-produto {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        margin-left: 10px;
-        border-radius: 3px;
-    }
-    .add-produto:hover {
-        background-color: #218838;
-    }
     </style>
 </head>
 <body>
@@ -91,76 +77,63 @@
         </select>
         <div id="produtos-container">
             <h3>Venda</h3>
-            <label for="vendedor">Produto:</label>
-            <div class="produto-row">
-                <select name="produtos[]" class="produto-select">
-                    {% for produto in produtos %}
-                <option value="{{ produto.id }}">{{ produto.nome }}</option>
-                {% endfor %}
-                </select>
-                <input type="number" name="quantidades[]" placeholder="Quantidade" min="1">
-                <button type="button" class="add-produto" onclick="adicionarProduto(this)">ADD</button>
-            </div>
+            <!-- Inicialmente vazio; será preenchido pelo JavaScript -->
         </div>
         <button type="submit" class="submit-btn">Cadastrar Venda</button>
     </form>
 
-        <!-- Armazenar opções de produtos como string HTML -->
+    <!-- Opções de produtos escondidas para duplicar campos -->
     <div id="produtos-options" style="display: none;">
         {% for produto in produtos %}
             <option value="{{ produto.id }}">{{ produto.nome }}</option>
         {% endfor %}
     </div>
 
-<script>
+    <script>
+        // Função para adicionar uma nova linha de produto
+        function addNovoProduto() {
+            const container = document.getElementById('produtos-container');
+            const row = document.createElement('div');
+            row.classList.add('produto-row');
+            const produtosOptions = document.getElementById('produtos-options').innerHTML;
 
-    function addNovoProduto() {
-        const container = document.getElementById('produtos-container');
-        const row = document.createElement('div');
-        row.classList.add('produto-row');
-        const produtosOptions = document.getElementById('produtos-options').innerHTML;
-
-        // Criar uma nova linha de produto
-        row.innerHTML = `
-            <select name="produtos[]" class="produto-select" required>
-                ${produtosOptions}
-            </select>
-            <input type="number" name="quantidades[]" placeholder="Quantidade" min="1" required>
-            <button type="button" class="add-produto" onclick="adicionarProduto(this)">ADD</button>
-        `;
-        container.appendChild(row);
-    }
-
-    function adicionarProduto(button) {
-        const row = button.parentElement; // A linha onde o botão foi clicado
-        const selectProduto = row.querySelector('.produto-select');
-        const inputQuantidade = row.querySelector('input[type="number"]');
-
-        // Validar os campos antes de marcar como adicionado
-        if (!selectProduto.value || inputQuantidade.value <= 0) {
-            alert('Por favor, selecione um produto e insira uma quantidade válida.');
-            return;
+            row.innerHTML = `
+                <select name="produtos[]" class="produto-select" required>
+                    ${produtosOptions}
+                </select>
+                <input type="number" name="quantidades[]" placeholder="Quantidade" min="1" required>
+                <button type="button" class="add-produto" onclick="adicionarProduto(this)">ADD</button>
+            `;
+            container.appendChild(row);
         }
 
-        // Tornar os campos somente leitura em vez de desativá-los
-        selectProduto.setAttribute('readonly', true);
-        inputQuantidade.setAttribute('readonly', true);
+        // Função acionada ao clicar em "ADD"
+        function adicionarProduto(button) {
+            const row = button.parentElement;
+            const selectProduto = row.querySelector('.produto-select');
+            const inputQuantidade = row.querySelector('input[type="number"]');
 
-        // Alterar o botão para indicar que o produto foi adicionado
-        button.disabled = true;
-        button.textContent = 'ADICIONADO';
+            if (!selectProduto.value || inputQuantidade.value <= 0) {
+                alert('Por favor, selecione um produto e insira uma quantidade válida.');
+                return;
+            }
 
-        // Adicionar uma nova linha automaticamente
-        addNovoProduto();
-    }
+            // Tornar os campos somente leitura
+            selectProduto.disabled = true;
+            inputQuantidade.disabled = true;
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const container = document.getElementById('produtos-container');
-        container.innerHTML = '';
-        addNovoProduto();
-    });
-</script>
+            // Alterar o botão para "Adicionado"
+            button.disabled = true;
+            button.textContent = 'ADICIONADO';
 
+            // Adicionar uma nova linha de produto
+            addNovoProduto();
+        }
 
+        // Inicializar a página com apenas um campo de produto
+        document.addEventListener('DOMContentLoaded', () => {
+            addNovoProduto();
+        });
+    </script>
 </body>
 </html>
