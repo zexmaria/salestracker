@@ -139,26 +139,41 @@
 
         // Função acionada ao clicar em "ADD"
         function adicionarProduto(button) {
-            const row = button.parentElement;
-            const selectProduto = row.querySelector('.produto-select');
-            const inputQuantidade = row.querySelector('input[type="number"]');
+    const row = button.parentElement;
+    const selectProduto = row.querySelector('.produto-select');
+    const inputQuantidade = row.querySelector('input[type="number"]');
 
-            if (!selectProduto.value || inputQuantidade.value <= 0) {
-                alert('Por favor, selecione um produto e insira uma quantidade válida.');
-                return;
-            }
+    if (!selectProduto.value || inputQuantidade.value <= 0) {
+        alert('Por favor, selecione um produto e insira uma quantidade válida.');
+        return;
+    }
 
-            // Tornar os campos somente leitura
-            selectProduto.disabled = true;
-            inputQuantidade.disabled = true;
+    // Criar inputs ocultos para enviar os valores ao backend
+    const hiddenProduto = document.createElement('input');
+    hiddenProduto.type = 'hidden';
+    hiddenProduto.name = 'produtos[]';
+    hiddenProduto.value = selectProduto.value;
 
-            // Alterar o botão para "Adicionado"
-            button.disabled = true;
-            button.textContent = 'ADICIONADO';
+    const hiddenQuantidade = document.createElement('input');
+    hiddenQuantidade.type = 'hidden';
+    hiddenQuantidade.name = 'quantidades[]';
+    hiddenQuantidade.value = inputQuantidade.value;
 
-            // Adicionar uma nova linha de produto
-            addNovoProduto();
-        }
+    row.appendChild(hiddenProduto);
+    row.appendChild(hiddenQuantidade);
+
+    // Tornar os campos visíveis somente leitura
+    selectProduto.disabled = true;
+    inputQuantidade.disabled = true;
+
+    // Alterar o botão para "Adicionado"
+    button.disabled = true;
+    button.textContent = 'ADICIONADO';
+
+    // Adicionar uma nova linha de produto
+    addNovoProduto();
+}
+
 
         // Função para buscar vendas da API
         async function carregarVendas() {

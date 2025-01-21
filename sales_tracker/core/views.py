@@ -98,7 +98,7 @@ def cliente_create(request):
 
 def vendedor_create(request):
     if request.method == "POST":
-        nome = request.POST["nome"]
+        nome = request.POST["nome"] 
         registro = request.POST["registro"]
         # Lógica para salvar o vendedor no banco de dados
         vendedor = Vendedor.objects.create(nome=nome, registro=registro)
