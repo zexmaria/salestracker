@@ -2,30 +2,91 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Vendas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1f2937; /* Fundo azul-acinzentado escuro */
+            margin: 0;
+            padding: 0;
+            color: #f8f1e8; /* Texto bege claro */
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #2a3647; /* Fundo em tom azul mais escuro */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #66c2ff; /* Azul claro */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: #a3e0ff; /* Azul muito claro */
+            margin-bottom: 15px;
+            border-left: 5px solid #66c2ff;
+            padding-left: 10px;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: #66c2ff;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #d9e2ec; /* Texto em tom claro */
+            margin: 5px 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #394b5f; /* Linha em tom azul escuro */
+            margin: 20px 0;
+        }
+        strong {
+            color: #f8f1e8; /* Texto em destaque */
+        }
+    </style>
 </head>
 <body>
-    <h1>Relatório de Vendas</h1>
-{% for venda in vendas %}
-    <h2>Venda ID: {{ venda.id }}</h2>
-    <p>Cliente: {{ venda.cliente }}</p>
-    <p>Vendedor: {{ venda.vendedor }}</p>
-    <p>Data da Venda: {{ venda.data_venda }}</p>
-    <h3>Produtos:</h3>
-    <ul>
-        {% for item in venda.itens.all %}
-            <li>
-                Produto: {{ item.produto.nome }},
-                Valor Unitário: R$ {{ item.produto.valor|floatformat:2 }},
-                Quantidade: {{ item.quantidade }},
-                Subtotal: R$ {{ item.subtotal|floatformat:2 }}
-            </li>
+    <div class="container">
+        <h1>Relatório de Vendas</h1>
+        {% for venda in vendas %}
+            <h2>Venda ID: {{ venda.id }}</h2>
+            <p><strong>Cliente:</strong> {{ venda.cliente }}</p>
+            <p><strong>Vendedor:</strong> {{ venda.vendedor }}</p>
+            <p><strong>Data da Venda:</strong> {{ venda.data_venda }}</p>
+            <h3>Produtos:</h3>
+            <ul>
+                {% for item in venda.itens.all %}
+                    <li>
+                        <strong>Produto:</strong> {{ item.produto.nome }},
+                        <strong>Valor Unitário:</strong> R$ {{ item.produto.valor|floatformat:2 }},
+                        <strong>Quantidade:</strong> {{ item.quantidade }},
+                        <strong>Subtotal:</strong> R$ {{ item.subtotal|floatformat:2 }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <p><strong>Valor Total da Venda:</strong> R$ {{ venda.valor_total|floatformat:2 }}</p>
+            <hr>
         {% endfor %}
-    </ul>
-    <p><strong>Valor Total da Venda:</strong> R$ {{ venda.valor_total|floatformat:2 }}</p>
-    <hr>
-{% endfor %}
-
+    </div>
 </body>
 </html>
-
