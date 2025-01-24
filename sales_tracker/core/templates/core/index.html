@@ -6,75 +6,178 @@
     <title>SalesTracker - Home</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #1f2937; /* Fundo azul-acinzentado escuro */
+            margin: 0;
+            padding: 0;
+            color: #f8f1e8; /* Texto bege claro */
         }
         a {
             text-decoration: none;
-            color: #007BFF;
+            color: #66c2ff; /* Azul claro */
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
         a:hover {
-            text-decoration: underline;
+            color: #33a8ff; /* Azul mais intenso */
         }
         .container {
-            max-width: 800px;
-            margin: auto;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #2a3647; /* Fundo em tom azul mais escuro */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-        .section {
+        h1 {
+            font-size: 2.5rem;
+            color: #66c2ff; /* Azul claro */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: #a3e0ff; /* Azul muito claro */
+            margin-bottom: 15px;
+            border-left: 5px solid #66c2ff;
+            padding-left: 10px;
+        }
+        .intro-section {
+            background: linear-gradient(135deg, #2f3e4d, #3a475a);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
             margin-bottom: 30px;
         }
-        .form-group {
+        .intro-section h2 {
+            font-size: 1.5rem;
+            color: #66c2ff;
             margin-bottom: 10px;
         }
+        .intro-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #d9e2ec; /* Texto em tom claro */
+            margin: 0;
+            text-align: justify;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        ul li a {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #394b5f; /* Cinza azulado */
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        ul li a:hover {
+            background: #2f3e50; /* Tom mais escuro */
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-row {
+            display: flex;
+            gap: 40px; /* Espaçamento aumentado */
+            margin-bottom: 15px;
+        }
         .form-group label {
-            display: block;
+            font-weight: bold;
+            color: #d9e2ec; /* Cor escura harmonizada com os inputs */
             margin-bottom: 5px;
+            display: block;
         }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #394b5f; /* Cinza azulado */
+            border-radius: 5px;
+            background: #1f2937; /* Fundo dos inputs */
+            color: #465B78; /* Texto claro */
         }
         button {
-            background-color: #007BFF;
+            background-color: #66cc99; /* Verde claro */
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #57b889; /* Verde mais escuro */
+            transform: translateY(-2px);
         }
+        .cadastros-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+        gap: 15px; /* Espaçamento entre os botões */
+        margin-top: 15px; /* Margem superior */
+    }
+
+    .cadastros-grid a {
+        display: inline-block;
+        padding: 10px 20px;
+        text-align: center;
+        background: #394b5f; /* Cor de fundo do botão */
+        color: #f8f1e8; /* Cor do texto */
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+
+    .cadastros-grid a:hover {
+        background: #2f3e50; /* Cor de fundo ao passar o mouse */
+    }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>SalesTracker</h1>
+        <div class="intro-section">
+            <h2>Bem vindo</h2>
+            <p>
+                SalesTracker é um sistem para gerenciamento de vendas.Você pode cadastrar
+                clientes, vendedores, produtos e vendas, além de gerar relatórios detalhados das suas transações.
+                Desenvolvido como parte de um projeto pessoal, este sistema utiliza tecnologias como Django e
+                Django REST Framework (DRF).
+            </p>
+        </div>
         <div class="section">
             <h2>Nova Venda</h2>
             <ul>
-                <li><a href="{% url 'core:cadastrar_venda' %}">Cadastrar Nova Venda</a></li>
+                <li><a href="{% url 'core:cadastrar_venda' %}"> <button type="submit">Cadastar Nova Venda</button> </a></li>
             </ul>
         </div>
         <div class="section">
             <h2>Cadastros</h2>
-            <ul>
-                <li><a href="{% url 'core:cliente_create' %}">Cadastrar Cliente</a></li>
-                <li><a href="{% url 'core:vendedor_create' %}">Cadastrar Vendedor</a></li>
-                <li><a href="{% url 'core:grupo_create' %}">Cadastrar Grupo de Produtos</a></li>
-                <li><a href="{% url 'core:produto_create' %}">Cadastrar Produto</a></li>
-            </ul>
+            <div class="cadastros-grid">
+                <a href="{% url 'core:cliente_create' %}">Cadastrar Cliente</a>
+                <a href="{% url 'core:vendedor_create' %}">Cadastrar Vendedor</a>
+                <a href="{% url 'core:grupo_create' %}">Cadastrar Grupo de Produtos</a>
+                <a href="{% url 'core:produto_create' %}">Cadastrar Produto</a>
+            </div>
         </div>
+
         <div class="section">
             <h2>Gerar Relatório de Vendas</h2>
             <form method="get" action="{% url 'core:relatorio_vendas' %}">
-                <div class="form-group">
-                    <label for="data_inicio">Data de Início</label>
-                    <input type="date" id="data_inicio" name="data_inicio">
-                </div>
-                <div class="form-group">
-                    <label for="data_fim">Data de Fim</label>
-                    <input type="date" id="data_fim" name="data_fim">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="data_inicio">Data de Início</label>
+                        <input type="date" id="data_inicio" name="data_inicio" placeholder="Selecione a data">
+                    </div>
+                    <div class="form-group">
+                        <label for="data_fim">Data de Fim</label>
+                        <input type="date" id="data_fim" name="data_fim" placeholder="Selecione a data">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="vendedor">Vendedor</label>
