@@ -4,66 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Vendas</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1f2937; /* Fundo azul-acinzentado escuro */
-            margin: 0;
-            padding: 0;
-            color: #f8f1e8; /* Texto bege claro */
-        }
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #2a3647; /* Fundo em tom azul mais escuro */
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #66c2ff; /* Azul claro */
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        h2 {
-            font-size: 1.8rem;
-            color: #a3e0ff; /* Azul muito claro */
-            margin-bottom: 15px;
-            border-left: 5px solid #66c2ff;
-            padding-left: 10px;
-        }
-        h3 {
-            font-size: 1.5rem;
-            color: #66c2ff;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #d9e2ec; /* Texto em tom claro */
-            margin: 5px 0;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
-        }
-        ul li {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: #394b5f; /* Linha em tom azul escuro */
-            margin: 20px 0;
-        }
-        strong {
-            color: #f8f1e8; /* Texto em destaque */
-        }
-    </style>
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container">
