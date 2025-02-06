@@ -1,0 +1,206 @@
+/* Estilos globais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1f2937; /* Fundo azul-acinzentado escuro */
+    margin: 0;
+    padding: 0;
+    color: #f8f1e8; /* Texto bege claro */
+}
+
+a {
+    text-decoration: none;
+    color: #66c2ff; /* Azul claro */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #33a8ff; /* Azul mais intenso */
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #2a3647; /* Fundo em tom azul mais escuro */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #66c2ff; /* Azul claro */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #a3e0ff; /* Azul muito claro */
+    margin-bottom: 15px;
+    border-left: 5px solid #66c2ff;
+    padding-left: 10px;
+}
+
+/* Estilos para a seção de introdução */
+.intro-section {
+    background: linear-gradient(135deg, #2f3e4d, #3a475a);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 30px;
+}
+
+.intro-section h2 {
+    font-size: 1.5rem;
+    color: #66c2ff;
+    margin-bottom: 10px;
+}
+
+.intro-section p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #d9e2ec; /* Texto em tom claro */
+    margin: 0;
+    text-align: justify;
+}
+
+/* Listas e botões do index */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li a {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #394b5f; /* Cinza azulado */
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+ul li a:hover {
+    background: #2f3e50; /* Tom mais escuro */
+}
+
+/* Estilos do formulário no index e na página de cadastro de vendas */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 40px; /* Espaçamento aumentado */
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #d9e2ec; /* Cor escura harmonizada com os inputs */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #394b5f; /* Cinza azulado */
+    border-radius: 5px;
+    background: #1f2937; /* Fundo dos inputs */
+    color: #465B78; /* Texto claro */
+}
+
+/* Botões comuns */
+button {
+    background-color: #66cc99; /* Verde claro */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #57b889; /* Verde mais escuro */
+    transform: translateY(-2px);
+}
+
+/* Grid de cadastros (index) */
+.cadastros-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    gap: 15px; /* Espaçamento entre os botões */
+    margin-top: 15px; /* Margem superior */
+}
+
+.cadastros-grid a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    background: #394b5f; /* Cor de fundo do botão */
+    color: #f8f1e8; /* Cor do texto */
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.cadastros-grid a:hover {
+    background: #2f3e50; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilos específicos para a página de cadastrar venda */
+form {
+    background: linear-gradient(135deg, #2f3e4d, #3a475a);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #d9e2ec;
+    margin-top: 10px;
+}
+
+.produto-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.produto-row input, .produto-row select {
+    width: 48%;
+}
+
+.submit-btn {
+    background-color: #66cc99; /* Verde claro */
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #394b5f;
+}
+
+th {
+    background-color: #394b5f;
+    color: #a3e0ff;
+}
