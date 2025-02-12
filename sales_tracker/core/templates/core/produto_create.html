@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <title>Cadastrar Produto</title>
     {% load static %}
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Adicionar Produto</h1>
-    <form action="{% url 'core:produto_create' %}" method="post">
-        {% csrf_token %}
+    <div class="container">
+        <h1>Adicionar Produto</h1>
+        <form action="{% url 'core:produto_create' %}" method="post">
+            {% csrf_token %}
 
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-        <label for="grupo">Grupo:</label>
-        <select id="grupo" name="grupo">
-            {% for grupo in grupos %}
-                <option value="{{ grupo.id }}">{{ grupo.nome }}</option>
-            {% endfor %}
-        </select><br><br>
+            <div class="form-group">
+                <label for="grupo">Grupo:</label>
+                <select id="grupo" name="grupo">
+                    {% for grupo in grupos %}
+                        <option value="{{ grupo.id }}">{{ grupo.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="valor">Valor:</label>
-        <input type="text" id="valor" name="valor" required><br><br>
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="text" id="valor" name="valor" required>
+            </div>
 
-        <button type="submit">Salvar Produto</button>
-    </form>
+            <button type="submit">Salvar Produto</button>
+        </form>
+    </div>
 </body>
 </html>

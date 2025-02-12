@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <title>Cadastrar Grupo</title>
     {% load static %}
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Adicionar Grupo</h1>
-    <form action="{% url 'core:grupo_create' %}" method="post">
-        {% csrf_token %}
-        <label for="nome"> Novo Grupo de Produtos:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+    <div class="container">
+        <h1>Adicionar Grupo</h1>
+        <form action="{% url 'core:grupo_create' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Novo Grupo de Produtos:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-        <button type="submit">Salvar Grupo</button>
-    </form>
+            <button type="submit">Salvar Grupo</button>
+        </form>
+    </div>
 </body>
 </html>

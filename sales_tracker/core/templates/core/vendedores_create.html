@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <title>Cadastrar Vendedor</title>
     {% load static %}
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Adicionar Vendedor</h1>
-    <form action="{% url 'core:vendedor_create' %}" method="post">
-        {% csrf_token %}
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+    <div class="container">
+        <h1>Adicionar Vendedor</h1>
+        <form action="{% url 'core:vendedor_create' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-        <label for="registro">Nº de Registro:</label>
-        <input type="text" id="registro" name="registro" required><br><br>
+            <div class="form-group">
+                <label for="registro">Nº de Registro:</label>
+                <input type="text" id="registro" name="registro" required>
+            </div>
 
-        <button type="submit">Salvar Vendedor</button>
-    </form>
+            <button type="submit">Salvar Vendedor</button>
+        </form>
+    </div>
 </body>
 </html>

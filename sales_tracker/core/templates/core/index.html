@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalesTracker - Home</title>
-     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -13,31 +13,31 @@
         <div class="intro-section">
             <h2>Bem vindo</h2>
             <p>
-                SalesTracker é um sistem para gerenciamento de vendas.Você pode cadastrar
-                clientes, vendedores, produtos e vendas, além de gerar relatórios detalhados das suas transações.
-                Desenvolvido como parte de um projeto pessoal, este sistema utiliza tecnologias como Django e
-                Django REST Framework (DRF).
+                SalesTracker is a sales management system. You can register customers,
+                sellers, products, and sales, as well as generate detailed reports on
+                your transactions. It was developed as part of a personal project and
+                is built using technologies like Django and Django REST Framework (DRF).
             </p>
         </div>
         <div class="section">
             <h2>Nova Venda</h2>
             <ul>
-                <li><a href="{% url 'core:cadastrar_venda' %}"> <button type="submit">Cadastar Nova Venda</button> </a></li>
+                <li><a href="/cadastrar_venda/"> <button type="submit">Cadastar Nova Venda</button> </a></li>
             </ul>
         </div>
         <div class="section">
             <h2>Cadastros</h2>
             <div class="cadastros-grid">
-                <a href="{% url 'core:cliente_create' %}">Cadastrar Cliente</a>
-                <a href="{% url 'core:vendedor_create' %}">Cadastrar Vendedor</a>
-                <a href="{% url 'core:grupo_create' %}">Cadastrar Grupo de Produtos</a>
-                <a href="{% url 'core:produto_create' %}">Cadastrar Produto</a>
+                <a href="/clientes/create/">Cadastrar Cliente</a>
+                <a href="/vendedores/create/">Cadastrar Vendedor</a>
+                <a href="/grupo/create/">Cadastrar Grupo de Produtos</a>
+                <a href="/produto/create/">Cadastrar Produto</a>
             </div>
         </div>
 
         <div class="section">
             <h2>Gerar Relatório de Vendas</h2>
-            <form method="get" action="{% url 'core:relatorio_vendas' %}">
+            <form method="get" action="/relatorios/vendas/">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="data_inicio">Data de Início</label>
@@ -52,18 +52,18 @@
                     <label for="vendedor">Vendedor</label>
                     <select id="vendedor" name="vendedor">
                         <option value="">Todos</option>
-                        {% for vendedor in vendedores %}
-                            <option value="{{ vendedor.id }}">{{ vendedor.nome }}</option>
-                        {% endfor %}
+
+                            <option value="2">Zi</option>
+
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="cliente">Cliente</label>
                     <select id="cliente" name="cliente">
                         <option value="">Todos</option>
-                        {% for cliente in clientes %}
-                            <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
-                        {% endfor %}
+
+                            <option value="3">Zé</option>
+
                     </select>
                 </div>
                 <button type="submit">Gerar Relatório</button>

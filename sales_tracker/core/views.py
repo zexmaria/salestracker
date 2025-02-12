@@ -3,6 +3,7 @@ from .serializers import *
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
@@ -173,3 +174,25 @@ def cadastrar_venda(request):
     }
     return render(request, "core/cadastrar_venda.html", context)
 
+def novo_index(request):
+    return render(request, "core/novo_index.html")
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            send_mail(
+                'Código de Verificação - SalesTracker',
+                f'Seu código de verificação é: {user.validation_token}',
+                'seuemail@example.com',
+                [user.email],
+                fail_silently=False,
+            )
+            request.session['user_id'] = user.id  # Salva o ID do usuário na sessão
+            return redirect('accounts:validate_email')  # Redireciona para validar email
+    else:
+        form = UserRegistrationForm()
+
+    return render(request, 'accounts/register.html', {'form': form})

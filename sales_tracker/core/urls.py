@@ -7,7 +7,7 @@ app_name = "core"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.index, name="index"),
+    path("", views.novo_index, name="novo_index"),
     # URLs para cadastros e relatórios
     path("clientes/create/", views.cliente_create, name="cliente_create"),
     path("vendedores/create/", views.vendedor_create, name="vendedor_create"),
@@ -15,6 +15,7 @@ urlpatterns = [
     path("relatorios/vendas/", views.relatorio_vendas, name="relatorio_vendas"),
     path("cadastrar_venda/", views.cadastrar_venda, name="cadastrar_venda"),
     path("grupo/create/", views.grupo_create, name="grupo_create"),
+    path("index/", views.index, name="index"),
     path(
         "api/vendas/",
         api_views.RelatorioVendasAPIView.as_view(),

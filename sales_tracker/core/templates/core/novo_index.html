@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesTracker - Acesso</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Caixa centralizada com dois botões -->
+    <div class="central-box">
+        <div class="button-group">
+            <button id="btn-login">Login</button>
+            <button id="btn-register">Novo Vendedor</button>
+        </div>
+    </div>
+
+    <!-- Modal para exibir os formulários -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script defer src="{% static 'js/login_modal.js' %}"></script>
+</body>
+</html>
